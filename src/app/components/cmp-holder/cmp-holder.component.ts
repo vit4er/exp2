@@ -2,6 +2,7 @@ import {Component, ComponentRef, OnInit, ViewChild} from '@angular/core';
 import {CmpHolderDirective} from './cmp-holder.directive';
 import {CmpItem} from './cmp-item';
 import {TransformService} from '../card-to-insert/transform.service';
+import {TabView} from "primeng/tabview";
 
 @Component({
   selector: 'app-cmp-holder',
@@ -9,15 +10,20 @@ import {TransformService} from '../card-to-insert/transform.service';
   styleUrls: ['./cmp-holder.component.scss'],
 })
 export class CmpHolderComponent implements OnInit {
+  @ViewChild('flexTabsView') tabView!: TabView;
   @ViewChild(CmpHolderDirective, { static: true })
   appCmpHolder!: CmpHolderDirective;
 
   cmpItems: CmpItem[] = [];
   itemToInsert: ComponentRef<any> | undefined;
 
-  constructor(private transformService: TransformService) {}
+    constructor(private transformService: TransformService
+              ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+
 
   loadComponent() {
     const viewContainerRef = this.appCmpHolder.viewContainerRef;
