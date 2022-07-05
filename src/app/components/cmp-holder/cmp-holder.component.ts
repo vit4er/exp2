@@ -1,8 +1,8 @@
-import {Component, ComponentRef, OnInit, ViewChild} from '@angular/core';
-import {CmpHolderDirective} from './cmp-holder.directive';
-import {CmpItem} from './cmp-item';
-import {TransformService} from '../card-to-insert/transform.service';
-import {TabView} from "primeng/tabview";
+import { Component, ComponentRef, OnInit, ViewChild } from '@angular/core';
+import { CmpHolderDirective } from './cmp-holder.directive';
+import { TransformService } from '../card-to-insert/transform.service';
+import { TabView } from 'primeng/tabview';
+import { Dynamo } from '../common/dynamo';
 
 @Component({
   selector: 'app-cmp-holder',
@@ -14,26 +14,20 @@ export class CmpHolderComponent implements OnInit {
   @ViewChild(CmpHolderDirective, { static: true })
   appCmpHolder!: CmpHolderDirective;
 
-  cmpItems: CmpItem[] = [];
-  itemToInsert: ComponentRef<any> | undefined;
+  cmpItems: Dynamo[] = [];
+  cmpToInsert: ComponentRef<any> | undefined;
 
-    constructor(private transformService: TransformService
-              ) {}
+  constructor(private transformService: TransformService) {}
 
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 
   loadComponent() {
     const viewContainerRef = this.appCmpHolder.viewContainerRef;
     const item = this.transformService.mapCardToCmpItem();
     //viewContainerRef.clear();
-    this.itemToInsert = viewContainerRef.createComponent<CmpItem>(
-      item.component
-    );
-    this.itemToInsert.instance.data = item.data;
-    this.cmpItems.push(this.itemToInsert.instance);
+    this.cmpToInsert = viewContainerRef.createComponent<Dynamo>(item.component);
+    this.cmpToInsert.instance.data = item.data;
+    this.cmpItems.push(this.cmpToInsert.instance);
   }
 
   addClick() {
@@ -42,10 +36,9 @@ export class CmpHolderComponent implements OnInit {
 
   deleteClick() {
     console.log(this.appCmpHolder.viewContainerRef.length);
-    const last = this.appCmpHolder.viewContainerRef.length-1;
+    const last = this.appCmpHolder.viewContainerRef.length - 1;
     this.appCmpHolder.viewContainerRef.remove(last);
     this.cmpItems.pop();
     console.log(this.cmpItems);
   }
-
 }

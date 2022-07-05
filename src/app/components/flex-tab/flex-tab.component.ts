@@ -1,18 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {IAddCmp} from "../cmp-holder/i-add-cmp";
+import { Component, Input, OnInit } from '@angular/core';
+import { IDynamo } from '../common/idynamo';
 
 @Component({
   selector: 'app-flex-tab',
   templateUrl: './flex-tab.component.html',
-  styleUrls: ['./flex-tab.component.scss']
+  styleUrls: ['./flex-tab.component.scss'],
 })
-export class FlexTabComponent implements OnInit,IAddCmp {
+export class FlexTabComponent implements OnInit, IDynamo {
   @Input() data: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
-
+  ngOnInit(): void {}
 }
